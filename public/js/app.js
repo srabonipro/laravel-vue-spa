@@ -2073,7 +2073,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2091,13 +2090,15 @@ __webpack_require__.r(__webpack_exports__);
     deleteCategory: function deleteCategory(id) {
       var _this2 = this;
 
-      axios["delete"]("/api/category/".concat(id)).then(function () {
-        _this2.$toast.success({
-          title: 'Success!',
-          message: 'Category deleted successfully!!'
+      if (confirm("Do you really want to delete?")) {
+        axios["delete"]("/api/category/".concat(id)).then(function () {
+          _this2.$toast.success({
+            title: 'Success!',
+            message: 'Category deleted successfully!!'
+          });
         });
-      });
-      this.loadCategories();
+        this.loadCategories();
+      }
     }
   },
   mounted: function mounted() {
@@ -2441,13 +2442,15 @@ __webpack_require__.r(__webpack_exports__);
     deleteProduct: function deleteProduct(id) {
       var _this2 = this;
 
-      axios["delete"]("/api/product/".concat(id)).then(function () {
-        _this2.$toast.success({
-          title: 'Success!',
-          message: 'Product deleted successfully!!'
+      if (confirm("Do you really want to delete?")) {
+        axios["delete"]("/api/product/".concat(id)).then(function () {
+          _this2.$toast.success({
+            title: 'Success!',
+            message: 'Product deleted successfully!!'
+          });
         });
-      });
-      this.loadProducts();
+        this.loadProducts();
+      }
     }
   },
   mounted: function mounted() {

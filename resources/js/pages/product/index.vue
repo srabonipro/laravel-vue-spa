@@ -58,13 +58,15 @@
                 });
             },
             deleteProduct(id) {
-                axios.delete(`/api/product/${id}`).then(() => {
-                    this.$toast.success({
-                        title:'Success!',
-                        message:'Product deleted successfully!!',
+                if(confirm("Do you really want to delete?")){
+                    axios.delete(`/api/product/${id}`).then(() => {
+                        this.$toast.success({
+                            title:'Success!',
+                            message:'Product deleted successfully!!',
+                        })
                     })
-                })
-                this.loadProducts();
+                    this.loadProducts();
+                }
             }
         },
         mounted() {

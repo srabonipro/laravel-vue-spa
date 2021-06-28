@@ -41,7 +41,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'title' => "required|max:255|unique:products,title",
             'price' => "required|integer",
-            'image' => "required|image|max:2048",
+            'image' => "required|image",
             'description' => "required",
         ]);
 
@@ -119,6 +119,7 @@ class ProductController extends Controller
         ]);
 
         if($request->image) {
+
             $imageName = time() . '_' . uniqid() . '.' . $request->image->getClientOriginalExtension();
             Storage::putFileAs('public/product', $request->image, $imageName);
             $product->image = 'storage/product/' . $imageName;
@@ -136,6 +137,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if($product) {
+            $product->delete();
+            return response()->json('success', 200);
+        }else {
+            return response()->json('failed', 404);
+        }
     }
 }

@@ -23,7 +23,6 @@
                                     <td> {{ category.name }} </td>
                                     <td> {{ category.slug }} </td>
                                     <td style="width:170px">
-                                        <!-- <router-link :to="{ name:'edit-category', params: {slug: category.slug} }" class="btn btn-sm btn-info">Edit</router-link> -->
                                         <router-link :to="{ name:'edit-category', params: {id: category.id} }" class="btn btn-sm btn-info">Edit</router-link>
                                         <a @click.prevent="deleteCategory(category.id)" href="#" class="btn btn-sm btn-danger">Delete</a>
                                     </td>
@@ -51,13 +50,15 @@
                 });
             },
             deleteCategory(id) {
-                axios.delete(`/api/category/${id}`).then(() => {
-                    this.$toast.success({
-                        title:'Success!',
-                        message:'Category deleted successfully!!',
+                if(confirm("Do you really want to delete?")){
+                    axios.delete(`/api/category/${id}`).then(() => {
+                        this.$toast.success({
+                            title:'Success!',
+                            message:'Category deleted successfully!!',
+                        })
                     })
-                })
-                this.loadCategories();
+                    this.loadCategories();
+                }
             }
         },
         mounted() {
