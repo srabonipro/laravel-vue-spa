@@ -56,7 +56,7 @@ import { objectToFormData } from 'object-to-formdata'
             }
         },
         methods: {
-            createProduct() {
+            createProduct(event) {
                 this.productForm.post('/api/product', {
                     transformRequest: [function (data, headers) {
                         return objectToFormData(data)
@@ -64,11 +64,8 @@ import { objectToFormData } from 'object-to-formdata'
                     onUploadProgress: e => {
                         console.log(e);
                     }
-                }).then(({data}) => {
-                    this.productForm.title = '';
-                    this.productForm.price = '';
-                    this.productForm.description = '';
-                    this.productForm.image = '';
+                }).then(() => {
+                    event.target.reset();
 
                     this.$toast.success({
                         title:'Success!',

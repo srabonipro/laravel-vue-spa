@@ -11,15 +11,15 @@
                         <table class="table table-hover">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th style="width:100px">ID</th>
+                                    <th style="width:100px">SL</th>
                                     <th>Category Name</th>
                                     <th>Slug</th>
                                     <th style="width:170px">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="category in categories" :key="category.id">
-                                    <td style="width:100px"> {{ category.id }} </td>
+                                <tr v-for="(category, index) in categories" :key="category.id">
+                                    <td style="width:100px"> {{ index+1 }} </td>
                                     <td> {{ category.name }} </td>
                                     <td> {{ category.slug }} </td>
                                     <td style="width:170px">

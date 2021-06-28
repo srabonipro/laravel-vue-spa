@@ -16,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::latest()->get();
+        return response()->json($products, 200);
     }
 
     /**
@@ -40,7 +41,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'title' => "required|max:255|unique:products,title",
             'price' => "required|integer",
-            // 'image' => "required|image|max:2048",
+            'image' => "required|image|max:2048",
             'description' => "required",
         ]);
 
@@ -86,7 +87,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        if($product) {
+            return response()->json($product, 200);
+        }else {
+            return response()->json('failed', 404);
+        }
     }
 
     /**
@@ -98,7 +103,29 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $this->validate($request, [
+            'title' => "required|max:255|unique:products,title, $product->id",
+            'price' => "required|integer",
+            'image' => "sometimes|nullable|image",
+            'description' => "required",
+        ]);
+
+        $product->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'price' => $request->price,
+            'description' => $request->description,
+            'image' => 'default.jpg',
+        ]);
+
+        if($request->image) {
+            $imageName = time() . '_' . uniqid() . '.' . $request->image->getClientOriginalExtension();
+            Storage::putFileAs('public/product', $request->image, $imageName);
+            $product->image = 'storage/product/' . $imageName;
+            $product->save();
+        }
+
+        return response()->json($product, 200);
     }
 
     /**

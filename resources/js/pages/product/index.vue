@@ -11,16 +11,24 @@
                         <table class="table table-hover">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th style="width:100px">ID</th>
+                                    <th style="width:100px">SL</th>
+                                    <th>Image</th>
                                     <th>Product Name</th>
+                                    <th>Price</th>
                                     <th>Slug</th>
                                     <th style="width:170px">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="product in products" :key="product.id">
-                                    <td style="width:100px"> {{ product.id }} </td>
-                                    <td> {{ product.name }} </td>
+                                <tr v-for="(product, index) in products" :key="product.id">
+                                    <td style="width:100px"> {{ index+1 }} </td>
+                                    <td>
+                                        <div style="max-width: 70px; max-height: 70px; overflow:hidden">
+                                            <img class="img-fluid" :src="product.image" alt="">
+                                        </div>
+                                    </td>
+                                    <td> {{ product.title }} </td>
+                                    <td> {{ product.price }} </td>
                                     <td> {{ product.slug }} </td>
                                     <td style="width:170px">
                                         <router-link :to="{ name:'edit-product', params: {id: product.id} }" class="btn btn-sm btn-info">Edit</router-link>
