@@ -14,6 +14,10 @@ import EditProduct from '../pages/product/edit.vue'
 
 // Authentication Files
 import Login from '../pages/auth/Login.vue'
+import Register from '../pages/auth/register.vue'
+
+// Dashboard
+import Dashboard from '../pages/dashboard/index.vue'
 
 const routes = new VueRouter({
     mode: 'history',
@@ -58,7 +62,17 @@ const routes = new VueRouter({
             path: '/auth/login',
             component: Login,
             name: 'login',
-        }
+        },
+        {
+            path: '/dashboard',
+            component: Dashboard,
+            name: 'dashboard',
+        },
+        {
+            path: '/register',
+            component: Register,
+            name: 'register',
+        },
     ]
 });
 

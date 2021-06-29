@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Login</h5>
-                        <router-link :to="{ name:'category-list' }" class="btn btn-sm btn-primary">Back</router-link>
+                        <router-link :to="{ name:'register' }" class="btn btn-sm btn-primary">Sign up now</router-link>
                     </div>
                     <div class="card-body">
                         <form class="w-50 mx-auto" @submit.prevent="login()">
@@ -45,17 +45,23 @@ import { Form } from 'vform'
         methods: {
             login() {
                 axios.get('/sanctum/csrf-cookie').then(response => {
-                    console.log('form submitted');
+                    // console.log('form submitted');
 
                     this.loginForm.post('/login').then(response => {
-                        console.log(response);
+                        // console.log(response);
+                        this.$router.push({ name: 'dashboard' });
+
+                        this.$toast.success({
+                            title:'Success!',
+                            message: "You're successfully logged in!!",
+                        });
                     });
                 });
             },
 
             getUserData() {
                 axios.get('/api/user').then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                 });
             }
         },

@@ -35,8 +35,15 @@
         methods: {
             logout() {
                 // console.log('logout button clicked');
+
                 axios.post('/logout').then(response => {
-                    console.log('success');
+                    // console.log('success');
+                    this.$router.push({ name: 'login' });
+
+                    this.$toast.success({
+                        title:'Success!',
+                        message: "You're successfully logged out!!",
+                    });
                 });
             }
         }
