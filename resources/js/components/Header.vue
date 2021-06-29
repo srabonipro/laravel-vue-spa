@@ -17,6 +17,12 @@
                         <li class="nav-item">
                             <router-link class="nav-link" :to="{ name:'product-list' }">Product</router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" :to="{ name:'login' }">Login</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" @click.prevent="logout">Logout</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -26,7 +32,14 @@
 
 <script>
     export default {
-
+        methods: {
+            logout() {
+                // console.log('logout button clicked');
+                axios.post('/logout').then(response => {
+                    console.log('success');
+                });
+            }
+        }
     }
 </script>
 

@@ -115,7 +115,7 @@ class ProductController extends Controller
             'slug' => Str::slug($request->title),
             'price' => $request->price,
             'description' => $request->description,
-            'image' => 'default.jpg',
+            'image' => '',
         ]);
 
         if($request->image) {
@@ -138,8 +138,14 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if($product) {
+
+            if($product->image && file_exists($product->image)) {
+                unlink($product->image);
+            }
+
             $product->delete();
             return response()->json('success', 200);
+
         }else {
             return response()->json('failed', 404);
         }
