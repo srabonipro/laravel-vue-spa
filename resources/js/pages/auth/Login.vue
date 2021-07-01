@@ -37,8 +37,8 @@ import { Form } from 'vform'
         data() {
             return {
                 loginForm: new Form({
-                    email: '',
-                    password: '',
+                    email: 'sraboni@gmail.com',
+                    password: 'password',
                 }),
             }
         },
@@ -49,6 +49,7 @@ import { Form } from 'vform'
 
                     this.loginForm.post('/login').then(response => {
                         // console.log(response);
+                        this.getUserData();
                         this.$router.push({ name: 'dashboard' });
 
                         this.$toast.success({
@@ -62,12 +63,13 @@ import { Form } from 'vform'
             getUserData() {
                 axios.get('/api/user').then(response => {
                     // console.log(response.data);
+                    let user = response.data;
+                    this.$store.commit('SET_USER', user);
                 });
             }
         },
 
         mounted() {
-            this.getUserData();
         }
     }
 </script>
